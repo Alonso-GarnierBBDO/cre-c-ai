@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './vars';
+@import './pages/login';
+@import './pages/chat';
+
+body{
+    background-color: $principal_color;
+}
+
+.center {
+
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: calc(100% - 0px) 0px;
+    justify-items: center;
+    align-items: center;    
+    padding: 0px 25px;
+    transition: .2s ease;
+
+    .box {
+
+        border: 1px solid $secundary_color;
+        width: 500px;
+        padding: rem(20px);
+        border-radius: rem(20px);
+
+    }
+
+}
+
+.center.expand {
+    grid-template-columns: calc(100% - 400px) 400px;
+}
+
+*,
+body,
+html{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+/* Works on Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: rgb(70, 70, 70) auto;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 7px;
+}
+
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color:rgb(70, 70, 70);
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
