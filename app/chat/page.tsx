@@ -2,9 +2,9 @@
 
 import { ArrowPathIcon, XMarkIcon, PaperAirplaneIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/solid'
 import { useState, useRef } from 'react'
-import GenerateGemini from '@/helpers/gemini';
+import GenerateGemini from '@/helpers/ai/gemini';
 import { useEffect } from 'react';
-import { generateImage } from '@/helpers/gpt';
+import { generateImage } from '@/helpers/ai/gpt';
 
 const ChatPage = () => {
 
@@ -45,14 +45,14 @@ const ChatPage = () => {
 
     }, []);
 
-    const generateCharacters = async (promptText: string, prompGPT: any) => {
+    const generateCharacters = async (instruction: string, promptText: string, prompGPT: any) => {
 
         const getCharacters = localStorage.getItem('obra');
         const getHistory = localStorage.getItem('history');
         
         if(!getCharacters && !getHistory){
 
-            const descriptionGenerate = await GenerateGemini(promptText, prompGPT);
+            const descriptionGenerate = await GenerateGemini(instruction, promptText, prompGPT);
 
             if(descriptionGenerate.length){
                 getTitle(descriptionGenerate)
@@ -77,45 +77,6 @@ const ChatPage = () => {
         startHistory(title, others)
         setShowButtonDescription(true);
         buttonDescription();
-    }
-
-    const run = () => {
-
-        localStorage.removeItem('obra');
-        localStorage.removeItem('history');
-
-        const promptText = 'Necesito que me generes un personaje para un cuento de niños. Debe ser solo el personaje, describiendo sus características.';
-        const prompGPT = [
-            { 
-                role: "system", 
-                content: "Eres el creador de cuentos, solo debes generar lo que usuario te pide" 
-            },
-            { 
-                role: "system", 
-                content: "En un '##' Debes agregar el titulo y en la siguiente linea debes agregar las caracteristicas" 
-            },
-            { 
-                role: "system", 
-                content: "No generes conversacion solo entrega los datos que necesito" 
-            },
-            { 
-                role: "system", 
-                content: "La respuesta debe estar generar en texto plano" 
-            },
-            {
-                role: 'user',
-                content: promptText
-            }
-        ];
-
-        setRunning(true);
-        generateCharacters(promptText, prompGPT);
-        setShowButtonDescription(false);
-        setShowDescription(false)
-        setTitle('Generando nueva obra <div class="loading"><span>.</span><span>.</span><span>.</span></div>')
-        setSubTitle('Iniciando esta nueva aventura<div class="loading"><span>.</span><span>.</span><span>.</span></div>')
-        setHistory([]);
-        setThereHistory(false);
     }
 
     const buttonDescription = () => {
@@ -146,6 +107,7 @@ const ChatPage = () => {
             });
 
             const promptTextContinueHistory = `Necesito que me continues esta historia "${historyString}" en la historia el personaje es "${title}" y la descripción del personaje es "${textDescription}", y otra cosa es no debes terminar la historia, la debes dejar en suspenso para continuar la historia mañana.`;
+            const geminiInstruction: string =  "Necesito que me generes un titulo y una descripcion con base a la peticion del usuario (La peticion del usuario esuna solicitud para crear un cuento), el titulo debe llevar al inicio los caracteres ## y en el siguiente salto de linea debes indicar la descripcion del cuento"
             const prompGPTContinueHistory = [
                 { 
                     role: "system", 
@@ -170,7 +132,7 @@ const ChatPage = () => {
             ];
 
 
-            const continueHistory = await GenerateGemini(promptTextContinueHistory, prompGPTContinueHistory);
+            const continueHistory = await GenerateGemini(geminiInstruction, promptTextContinueHistory, prompGPTContinueHistory);
             resetHistory(continueHistory);
 
             setTimeout(() => {
@@ -211,6 +173,7 @@ const ChatPage = () => {
             }
         ]
 
+
         const image = await generateImage(title, others);
 
         if(image){
@@ -218,7 +181,7 @@ const ChatPage = () => {
             localStorage.setItem('image', image)
         }
 
-        const startHistory = await GenerateGemini(promptTextStartHistory, prompGPTHistory);
+        const startHistory = await GenerateGemini('genera la peticion del usuario', promptTextStartHistory, prompGPTHistory);
 
         resetHistory(startHistory);
 
@@ -245,7 +208,7 @@ const ChatPage = () => {
             localStorage.removeItem('obra');
             localStorage.removeItem('history');
 
-            const promptText = `Necesito que me generes un personaje para un cuento. Debe ser solo el personaje, describiendo sus características, el titulo (El titulo debe llevar al inicio los siguiente dos caracteres "##", esto para indentificar el titulo) y la descripcion del cuento debe ser acorde a los siguiente "${value}"`;
+            const promptText = value;
             const prompGPT = [
                 { 
                     role: "system", 
@@ -268,9 +231,10 @@ const ChatPage = () => {
                     content: promptText
                 }
             ];
+            const geminiInstruction: string =  "Necesito que me generes un titulo y una descripcion con base a la peticion del usuario (La peticion del usuario es una solicitud para crear un cuento), el titulo debe llevar al inicio los caracteres ## y en el siguiente salto de linea debes indicar la descripcion del cuento"
 
             setRunning(true);
-            generateCharacters(promptText, prompGPT);
+            generateCharacters(geminiInstruction, promptText, prompGPT);
             setShowButtonDescription(false);
             setShowDescription(false)
             setTitle('Generando nueva obra <div class="loading"><span>.</span><span>.</span><span>.</span></div>')
@@ -341,7 +305,6 @@ const ChatPage = () => {
                         !thereHistory && !running ?
                             <>
                                 <button onClick={runHistory} className={ running ? 'active' : '' } disabled={running}><PaperAirplaneIcon width={25} type='Outline'/></button>
-                                <button onClick={run}><QuestionMarkCircleIcon width={25}/></button>
                             </>: ''
                     }
 

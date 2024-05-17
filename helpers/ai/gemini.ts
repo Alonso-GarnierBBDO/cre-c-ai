@@ -3,14 +3,19 @@ import { GPT } from './gpt';
 
 const genAI : GoogleGenerativeAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GOOGLE as string);
 
-const GenerateGemini = async (promptText: string, prompGPT : any) => {
+const GenerateGemini = async (instructionGemini: string, promptText: string, prompGPT : any) => {
 
     console.log('Intentando con Gemini');
     let data = '';
 
     try{
 
-        const model = genAI.getGenerativeModel({model: "gemini-1.5-pro-latest"});
+    
+        const model = genAI.getGenerativeModel({
+            model: "gemini-1.5-pro-latest",
+            systemInstruction: instructionGemini
+        });
+
         const prompt : string = promptText;
 
         const result = await model.generateContent(prompt);

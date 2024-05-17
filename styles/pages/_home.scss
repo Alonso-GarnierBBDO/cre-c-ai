@@ -1,0 +1,372 @@
+.home{
+
+    background-color: white; 
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+
+    .content {
+
+        height: calc(90%);
+        display: grid;
+        place-items: center;
+
+        div {
+
+
+            width: calc(100% - 50px);
+            height: calc(100% - 50px);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 40% 60%;
+            background-color: rgb(243, 243, 243);
+            border-radius: 15px;
+            overflow: hidden;
+
+            .image {
+
+                overflow: hidden;
+                position: relative;
+
+                .loading {
+
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    width: 100%;
+                    height: 100%;
+                    animation: loading 1s ease infinite;
+                    border-radius: 0px;
+
+                }
+
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+            }
+
+            .information {
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+
+                .texts.show{
+                    transform: translateX(0%);
+                    opacity: 1;
+                }
+
+                .texts.remove{
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+
+                .texts {
+
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    transform: translateX(-100%);
+                    transition: .2s ease;
+                    opacity: 0;
+                    padding: 20px;
+
+                    .title.loading{
+                        animation: loading 1s ease infinite;
+                        background-color: rgb(216, 216, 216);
+                        border-radius: 10px;
+                        height: rem(55px);
+                    }
+
+                    .title {
+                        height: auto;
+                        width: 100%;
+                        display: block;
+                        border-radius: 0px;
+
+                        @keyframes loading {
+                            0%{
+                                background-color: rgb(216, 216, 216);
+                            }
+                            50%{
+                                background-color: rgb(196, 196, 196);
+                            }
+                            100%{
+                                background-color: rgb(216, 216, 216);
+                            }
+                        }
+
+                        h1 {
+
+                            color: $principal_color;
+                            font-family: $secundary_font;
+                            font-size: rem(35px);
+                            width: 100%;
+                            overflow: hidden;
+                            animation: showTitle .8s ease 1;
+                            transform: translateY(0%);
+    
+                        }
+
+                        @keyframes showTitle {
+                            0%{
+                                transform: translateY(100%);
+                            }
+                            
+                            100%{
+                                transform: translateY(0%);
+                            }
+                        }
+
+                    }
+
+                    .description.loading{
+                        animation: loading 1s ease infinite;
+                        background-color: rgb(216, 216, 216);
+                        border-radius: 10px;
+                        min-height: rem(80px);
+                        animation: loading 1s ease infinite;
+                        animation-delay: .5s;
+                        margin-top: rem(20px);
+                    }
+
+                    .description{
+
+                        opacity: 1;
+                        height: auto;
+                        padding: 0px;
+                        width: 100%;
+                        display: block;
+                        font-family: $principal_font;
+                        color: $principal_color;
+                        border-radius: 0px;
+
+                        p {
+
+                            $font-size: 26px;
+                            $line-height: 1.4;
+                            $lines-to-show: 3;
+
+                            display: block; /* Fallback for non-webkit */
+                            display: -webkit-box;
+                            max-width: 100%;
+                            height: rem(17px) * 1.4 * 2; /* Fallback for non-webkit */
+                            margin: 0 auto;
+                            font-size: rem(17px);
+                            line-height: 1.4;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+
+                        }
+
+                    }
+
+                    .content {
+
+                        margin-top: 20px;
+                        width: 100%;
+                        height: calc(100% - 175px);
+                        overflow: auto;
+                        display: block;
+                        color: $principal_color;
+                        font-family: $principal_font;
+                        font-size: rem(17px);
+                        border-radius: 10px;
+                        border: 1px solid rgb(224, 224, 224);
+                        padding: 15px;
+
+                        hr {
+
+                            border: 0px;
+                            height: 1px;
+                            background-color: rgb(224, 224, 224);
+                            margin: 25px 0px;
+
+                        }
+
+                    }
+
+                    .content.loading{
+                        animation: loading 1s ease infinite;
+                        animation-delay: .3s;
+                        background-color: rgb(216, 216, 216);
+                    }
+
+                }
+
+                .welcome {
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    transform: translateX(-100%);
+                    transition: .2s ease;
+                    opacity: 1;
+
+                    h1 {
+
+                        font-size: rem(40px);
+                        color: #0F8B52;
+                        font-family: $secundary_font;           
+                        width: 100%;         
+                        text-align: center;
+                        height: rem(120px);
+    
+                    }
+    
+                    .ml4 {
+                        position: relative;
+                        font-weight: 900;
+                        font-size: 4.5em;
+                    }
+    
+                    .ml4 .letters {
+                        position: absolute;
+                        margin: auto;
+                        left: 0;
+                        top: 0em;
+                        right: 0;
+                        opacity: 0;
+                    }
+
+                }         
+                
+                .welcome.show {
+                    transform: translateX(0%);
+                    opacity: 1;
+                }
+
+                .welcome.remove {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                    
+            }
+
+        }
+
+    }
+
+    .controls {
+
+        height: calc(10% - 25px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 10px;
+        position: relative;
+
+        input {
+
+            height: 50px;
+            width: 800px;
+            background-color: transparent;
+            border: 1.5px solid $principal_color;
+            border-radius: 10px;
+            padding: 15px;
+            outline: none;
+            transition: .5s ease;
+            outline: 1.5px solid transparent;
+            font-family: $principal_font;
+            font-size: rem(17px);
+            color: $principal_color;
+
+            &::placeholder{
+                color: $secundary_color;
+            }
+
+            &:focus{
+                outline: 1.5px solid $principal_color;
+                color: $principal_color;
+            }
+
+            &:disabled{
+                opacity: 0.8;
+            }
+
+        }
+
+        .submit,
+        .showDescription {
+
+            width: 50px;
+            background-color: $principal_color;
+            height: 50px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            transition: .2s ease;
+            outline: 1.5px solid transparent;
+
+            &:hover{
+
+                transform: scale(0.9);
+
+            }
+
+            &:active{
+                transform: scale(0.8);
+            }
+
+            &:focus{
+                outline: 1.5px solid $secundary_color;
+            }
+
+            &:disabled{ 
+
+                pointer-events: none;
+                opacity: 0.6;
+
+                svg {
+
+                    animation: rotateElement .8s linear infinite;
+
+                    @keyframes rotateElement {
+                        0%{
+                            transform: rotate(0deg);
+                        }
+                        100%{
+                            transform: rotate(360deg);
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+        .submit.delete {
+
+            background-color: rgb(247, 58, 58);
+            position: absolute;
+            right: 25px;
+
+            &:disabled{ 
+
+                pointer-events: none;
+                opacity: 0.6;
+
+                svg {
+
+                    animation: none;
+
+                }
+
+            }
+            
+
+        }
+
+    }
+
+}

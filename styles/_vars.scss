@@ -1,10 +1,26 @@
 @use 'sass:math';
 
+// Imports fonts
+@font-face {
+    font-family: gelionSemiBold;
+    src: url(../assets/fonts/Gelion-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: volkswagen;
+    src: url(../assets/fonts/Volkswagen-Heavy.otf);
+}
+
+
+// Fonts
+$principal_font: gelionSemiBold;
+$secundary_font: volkswagen;
+
+
 // Colors
-$principal_color: #000000;
-$secundary_color: #383838;
-$secundary_color_transparent: #0000009c;
-$terciary_color: #333333;
+$principal_color: #0F8B52;
+$secundary_color: #0f8b5179;
+$terciary_color: #A6D16B;
 $cuarto_color: #9e9e9e;
 
 

@@ -47,7 +47,7 @@ const generateImage = async (title: string, description: string) => {
 
         const response = await openAI.images.generate({
             model: "dall-e-3",
-            prompt: `Portada para el siguiente cuento, titulo de la obra: "${title}", descripcion de la obra: "${description}", adicionalmente no quiero que la ilustracion tenga texto`,
+            prompt: `Generame una imagen, que referencia del siguiente titulo: "${title}", y tambien tome como referencia la siguiente descripción: "${description}", la imagen no debe tener texto ni fondos decorativos`,
             n: 1,
             size: "1792x1024",
         })

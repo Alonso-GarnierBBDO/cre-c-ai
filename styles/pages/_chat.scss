@@ -146,6 +146,10 @@
     h1 {
 
         font-size: rem(25px);
+        text-overflow: ellipsis;
+        overflow: hidden; 
+        width: 90%; 
+        white-space: nowrap;
 
     }
 
@@ -177,8 +181,11 @@
             font-size: rem(40px);
             background: rgb(28, 28, 28);
             line-height: rem(45px);
-            display: flex;
-            flex-flow: row;
+
+            text-overflow: ellipsis;
+            overflow: hidden; 
+            width: 100%; 
+            white-space: nowrap;
         }
 
         .show {
@@ -276,7 +283,7 @@
 
             .items{
 
-                height: calc(100% - 25px);
+                height: calc(100% - 26px);
                 overflow: auto;
                 position: relative;
                 padding-top: rem(20px);
